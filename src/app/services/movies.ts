@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Movie, MoviesResponse } from '../models/movie';
 import { GenreResponse } from '../models/genre';
-import { movie, MoviesByGenre } from '../models/movies-by-genre';
+import { movieGenre, MoviesByGenre } from '../models/movies-by-genre';
 import { MovieDetailsResponse } from '../models/movie-details';
 import { CreditsResponse } from '../models/credits-response';
 import { Video } from '../models/video';
 import { TrendingResponse } from '../models/trending';
+import { MoviesResponse } from '../models/movie';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +47,7 @@ getMoviesbyGenre (genreId:number): Observable<MoviesByGenre>{
  searchMovies (query:string):Observable<MoviesResponse> {
   return this.http.get<MoviesResponse>(`/search/movie?query=${query}`);
 };
-getMovie(id: number): Observable<movie> {
+getMovie(id: number): Observable<movieGenre> {
   return this.http.get<MovieDetailsResponse>(`/movie/${id}`).pipe(
     map(movie => ({
       adult: movie.adult,

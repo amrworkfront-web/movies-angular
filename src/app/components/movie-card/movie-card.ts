@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { movie } from '../../models/movies-by-genre';
+import { movieGenre } from '../../models/movies-by-genre';
 import { RouterLink } from "@angular/router";
 
 @Component({
@@ -9,7 +9,7 @@ import { RouterLink } from "@angular/router";
   styleUrl: './movie-card.css',
 })
 export class MovieCard {
-  movie=input<movie|null>(null)
+  movie=input<movieGenre|null>(null)
 
   
 }

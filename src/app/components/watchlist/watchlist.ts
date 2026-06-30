@@ -4,7 +4,7 @@ import {Watchlist as watchlistService} from '../../services/watchlist'
 import { forkJoin } from 'rxjs';
 import { Movies } from '../../services/movies';
 import { Movie } from '../../models/movie';
-import { movie } from '../../models/movies-by-genre';
+import { movieGenre } from '../../models/movies-by-genre';
 @Component({
   selector: 'app-watchlist',
   imports: [MovieCard],
@@ -15,7 +15,7 @@ export class Watchlist {
   watchlist=inject(watchlistService)
   MovieService=inject(Movies)
   moviesList=this.watchlist.watchlist()
-  movies=signal<movie[]>([])
+  movies=signal<movieGenre[]>([])
 
   ngOnInit(){
     forkJoin(

@@ -1,6 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { movie } from '../models/movies-by-genre';
-import { MovieDetailsResponse } from '../models/movie-details';
+import {  Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
