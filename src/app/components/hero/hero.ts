@@ -10,7 +10,6 @@ import { Movie } from '../../models/movie';
 })
 export class Hero {
   private moviesService=inject(Movies)
-// hero = signal({} as Movie);
 hero = signal<Movie | undefined>(undefined);
 ngOnInit(){
   this.getPopularMovies()

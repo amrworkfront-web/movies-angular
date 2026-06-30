@@ -11,18 +11,20 @@ import { MovieCard } from '../movie-card/movie-card';
   styleUrl: './movies-genre.css',
 })
 export class MoviesGenre {
-  private moviesByGenre=inject(Movies)
-  genre=input<Genre>({}as Genre)
-  movies=signal<movie[]>([])
-translateX = signal(0);
-  ngOnInit(){
-    this.getMovesByGenre()
+  private moviesByGenre = inject(Movies);
+  genre = input<Genre | null>(null);
+  movies = signal<movie[]>([]);
+  translateX = signal(0);
+  ngOnInit() {
+    this.getMovesByGenre();
   }
-  getMovesByGenre(){
-    this.moviesByGenre.getMoviesbyGenre(this.genre().id).subscribe({
-      next:(res)=>this.movies.set(res.results),
-      error:(res)=>console.log(res),
-    })
+  getMovesByGenre() {
+    const genre = this.genre();
+    if (!genre) return;
+     this.moviesByGenre.getMoviesbyGenre(this.genre()!.id).subscribe({
+      next: (res) => this.movies.set(res.results),
+      error: (res) => console.log(res),
+    });
   }
 
   @ViewChild('slider')
@@ -31,14 +33,14 @@ translateX = signal(0);
   next() {
     this.slider.nativeElement.scrollBy({
       left: 900,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 
   previous() {
     this.slider.nativeElement.scrollBy({
       left: -900,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 }

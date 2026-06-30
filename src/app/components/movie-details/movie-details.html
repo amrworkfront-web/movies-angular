@@ -1,25 +1,25 @@
 <!-- <div>
   <div class="relative">
     <img
-      [src]="'https://image.tmdb.org/t/p/w780' + movieDetails().backdrop_path"
+      [src]="'https://image.tmdb.org/t/p/w780' + movieDetails()?.backdrop_path"
       alt=""
       class="w-full rounded-2xl"
     />
 
     <h2 class="absolute bottom-40 left-5 text-2xl font-bold">
-      {{ movieDetails().original_title }}
+      {{ movieDetails()?.original_title }}
     </h2>
-    <h2 class="absolute bottom-34 left-5 text-2xl font-bold">{{ movieDetails().tagline }}</h2>
+    <h2 class="absolute bottom-34 left-5 text-2xl font-bold">{{ movieDetails()?.tagline }}</h2>
     <div>
-      <span>{{ movieDetails().vote_average.toFixed() }}</span>
-      <span>{{ movieDetails().runtime }}</span>
-      <span>{{ movieDetails().release_date }}</span>
+      <span>{{ movieDetails()?.vote_average.toFixed() }}</span>
+      <span>{{ movieDetails()?.runtime }}</span>
+      <span>{{ movieDetails()?.release_date }}</span>
     </div>
   </div>
   <div class="grid grid-cols-10">
     <div class="col-span-2">
       <img
-        [src]="'https://image.tmdb.org/t/p/w185' + movieDetails().poster_path"
+        [src]="'https://image.tmdb.org/t/p/w185' + movieDetails()?.poster_path"
         alt=""
         class="rounded-2xl"
       />
@@ -28,11 +28,11 @@
     </div>
     <div class="col-span-8">
       <div class="flex items-center gap-4">
-        @for (genre of movieDetails().genres; track genre.id) {
+        @for (genre of movieDetails()?.genres; track genre.id) {
           <span class="px-4 py-2 rounded-2xl bg-gray-500/25">{{ genre.name }}</span>
         }
       </div>
-      <p>{{ movieDetails().overview }}</p>
+      <p>{{ movieDetails()?.overview }}</p>
     </div>
   </div>
   <div class="cast flex items-center justify-between">
@@ -65,9 +65,9 @@
   <div class="relative h-[550px] overflow-hidden rounded-3xl shadow-2xl">
 
     <img
-      [src]="'https://image.tmdb.org/t/p/original' + movieDetails().backdrop_path"
+      [src]="'https://image.tmdb.org/t/p/original' + movieDetails()?.backdrop_path"
       class="h-full w-full object-cover"
-      [alt]="movieDetails().original_title">
+      [alt]="movieDetails()?.original_title">
 
     <!-- Overlay -->
     <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-black/50 to-transparent"></div>
@@ -76,25 +76,25 @@
     <div class="absolute bottom-10 left-10 max-w-3xl">
 
       <h1 class="text-5xl font-bold">
-        {{ movieDetails().original_title }}
+        {{ movieDetails()?.original_title }}
       </h1>
 
       <p class="mt-3 text-lg italic text-zinc-300">
-        {{ movieDetails().tagline }}
+        {{ movieDetails()?.tagline }}
       </p>
 
       <div class="mt-5 flex flex-wrap items-center gap-6 text-lg">
 
         <span class="flex items-center gap-2">
-          ⭐ {{ movieDetails().vote_average.toFixed(1) }}
+          ⭐ {{ movieDetails()?.vote_average?.toFixed(1) }}
         </span>
 
         <span>
-          ⏱ {{ movieDetails().runtime }} min
+          ⏱ {{ movieDetails()?.runtime }} min
         </span>
 
         <span>
-          📅 {{ movieDetails().release_date }}
+          📅 {{ movieDetails()?.release_date }}
         </span>
 
       </div>
@@ -110,14 +110,14 @@
     <div>
 
       <img
-        [src]="'https://image.tmdb.org/t/p/w500' + movieDetails().poster_path"
+        [src]="'https://image.tmdb.org/t/p/w500' + movieDetails()?.poster_path"
         class="w-full rounded-3xl shadow-2xl"
-        [alt]="movieDetails().original_title">
+        [alt]="movieDetails()?.original_title">
 
       <button
-      (click)="watchlistService.toggle(movieDetails().id)"
+      (click)="watchlistService.toggle(movieDetails()!.id)"
         class="mt-6 w-full rounded-xl bg-red-600 py-3 font-semibold transition hover:bg-red-700">
-@if(!watchlistService.isInWatchlist(movieDetails().id)){
+@if(!watchlistService.isInWatchlist(movieDetails()!.id)){
 
   + Add To Watchlist
 }@else {
@@ -134,7 +134,7 @@
       <!-- Genres -->
       <div class="flex flex-wrap gap-3">
 
-        @for (genre of movieDetails().genres; track genre.id) {
+        @for (genre of movieDetails()?.genres; track genre.id) {
 
           <span
             class="rounded-full bg-zinc-800 px-5 py-2 text-sm font-medium">
@@ -154,7 +154,7 @@
       </h2>
 
       <p class="mt-4 text-lg leading-8 text-zinc-300">
-        {{ movieDetails().overview }}
+        {{ movieDetails()?.overview }}
       </p>
 
     </div>

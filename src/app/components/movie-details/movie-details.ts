@@ -6,6 +6,7 @@ import { Cast } from '../../models/credits-response';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Result, Video } from '../../models/video';
 import { Watchlist } from '../../services/watchlist';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-movie-details',
@@ -16,16 +17,16 @@ import { Watchlist } from '../../services/watchlist';
 export class MovieDetails {
   private movieDetailsService = inject(Movies);
   route = inject(ActivatedRoute);
-  movieDetails = signal<MovieDetailsResponse>({} as MovieDetailsResponse);
+  movieDetails = signal<MovieDetailsResponse|null>(null);
   movieCrediates = signal<Cast[]>([]);
-  video = signal<Result>({} as Result);
+  video = signal<Result|null>(null);
   sanitizer = inject(DomSanitizer);
   videoUrl!: SafeResourceUrl;
 
   watchlistService = inject(Watchlist);
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
+    this.route.paramMap.pipe(takeUntilDestroyed()).subscribe((params) => {
       const id = params.get('id');
       if (!id) return;
       
@@ -33,9 +34,7 @@ export class MovieDetails {
 
       this.getMovieCredits(+id);
       this.getMovieVideos(+id);
-      this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-        `https://www.youtube.com/embed/${this.video().key}`,
-      );
+
     });
   }
   getMovieDetails(id: number) {

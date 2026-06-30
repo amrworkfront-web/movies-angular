@@ -13,7 +13,7 @@ import { switchMap, tap } from 'rxjs';
 })
 export class Trending {
   private TrendingMoviesService=inject(Movies)
-  TrendingMovies=signal<TrendingResponse>({}as TrendingResponse)
+  TrendingMovies=signal<TrendingResponse|null>(null)
 pageNumber = signal(2);
 
 pageNumber$ = toObservable(this.pageNumber);
@@ -46,7 +46,7 @@ visiblePages = computed(() => {
   const start = Math.max(1, current - 2);
 
   const end = Math.min(
-    this.TrendingMovies().total_pages,
+    this.TrendingMovies()!.total_pages,
     start + 4
   );
 

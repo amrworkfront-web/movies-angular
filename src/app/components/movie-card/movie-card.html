@@ -1,5 +1,5 @@
 <a
-  [routerLink]="['/home/movies', movie().id]"
+  [routerLink]="['/home/movies', movie()?.id]"
   class="block w-full"
 >
   <div
@@ -8,8 +8,8 @@
     <!-- Poster -->
     <img
       class="h-[320px] w-full object-cover transition duration-500 group-hover:scale-110"
-      [src]="'https://image.tmdb.org/t/p/w500' + movie().poster_path"
-      [alt]="movie().title"
+      [src]="'https://image.tmdb.org/t/p/w500' + movie()?.poster_path"
+      [alt]="movie()?.title"
     />
 
     <!-- Overlay -->
@@ -18,17 +18,17 @@
     >
       <div class="absolute bottom-0 p-4 text-white">
         <h2 class="line-clamp-1 text-lg font-bold">
-          {{ movie().title }}
+          {{ movie()?.title }}
         </h2>
 
         <div class="mt-2 flex items-center gap-3 text-sm text-gray-300">
-          <span>⭐ {{ movie().vote_average }}</span>
-          <span>{{ movie().release_date }}</span>
-          <span>{{ movie().original_language }}</span>
+          <span>⭐ {{ movie()?.vote_average }}</span>
+          <span>{{ movie()?.release_date }}</span>
+          <span>{{ movie()?.original_language }}</span>
         </div>
 
         <p class="mt-3 line-clamp-3 text-sm text-gray-300">
-          {{ movie().overview }}
+          {{ movie()?.overview }}
         </p>
       </div>
     </div>

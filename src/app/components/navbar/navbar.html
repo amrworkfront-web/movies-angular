@@ -92,7 +92,7 @@
       >
         @for(movie of movies(); track movie.id) {
 
-<a href="" [routerLink]="['movies/'+movie.id]">
+<a [routerLink]="['movies/'+movie.id]">
           <div 
           class="flex cursor-pointer items-center gap-3 border-b border-gray-700 p-3 transition hover:bg-[#2B3040]"
         >

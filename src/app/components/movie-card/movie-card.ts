@@ -9,7 +9,7 @@ import { RouterLink } from "@angular/router";
   styleUrl: './movie-card.css',
 })
 export class MovieCard {
-  movie=input<movie>({}as movie)
+  movie=input<movie|null>(null)
 
   
 }

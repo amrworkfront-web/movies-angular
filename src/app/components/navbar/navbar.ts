@@ -4,6 +4,7 @@ import { Movies } from '../../services/movies';
 import { Movie } from '../../models/movie';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,8 @@ ngOnInit() {
     switchMap(searchTerm =>
       this.searchService.searchMovies(searchTerm ?? '')
     )
+    ,
+    takeUntilDestroyed()
 
   ).subscribe({
     next: (res) => this.movies.set(res.results),
