@@ -6,10 +6,11 @@ import { Cast } from '../../models/credits-response';
 import { Watchlist } from '../../services/watchlist';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { VideoCard } from "../video-card/video-card";
+import { MovieCredits } from "../movie-credits/movie-credits";
 
 @Component({
   selector: 'app-movie-details',
-  imports: [VideoCard],
+  imports: [VideoCard, MovieCredits],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css',
 })
@@ -17,7 +18,6 @@ export class MovieDetails {
    movieDetailsService = inject(Movies);
   route = inject(ActivatedRoute);
   movieDetails = signal<MovieDetailsResponse|null>(null);
-  movieCrediates = signal<Cast[]>([]);
   watchlistService = inject(Watchlist);
    private destroyRef = inject(DestroyRef);
     id:string|null=null
@@ -29,7 +29,6 @@ export class MovieDetails {
       
       this.getMovieDetails(+this.id);
 
-      this.getMovieCredits(+this.id);
 
     });
   }
@@ -40,12 +39,7 @@ export class MovieDetails {
     });
   }
 
-  getMovieCredits(id: number) {
-    this.movieDetailsService.getMovieCredits(id).subscribe({
-      next: (res) => this.movieCrediates.set(res.cast),
-      error: (err) => console.log(err),
-    });
-  }
+
 
 
 }
