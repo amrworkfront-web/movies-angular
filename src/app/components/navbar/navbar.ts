@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { Movies } from '../../services/movies';
 import { Movie } from '../../models/movie';
@@ -16,6 +16,8 @@ export class Navbar {
   private searchService=inject(Movies)
   movies=signal<Movie[]>([])
   searchControl = new FormControl('');
+    private destroyRef = inject(DestroyRef);
+
 ngOnInit() {
 
   this.searchControl.valueChanges.pipe(
@@ -26,7 +28,7 @@ ngOnInit() {
       this.searchService.searchMovies(searchTerm ?? '')
     )
     ,
-    takeUntilDestroyed()
+    takeUntilDestroyed(this.destroyRef)
 
   ).subscribe({
     next: (res) => this.movies.set(res.results),

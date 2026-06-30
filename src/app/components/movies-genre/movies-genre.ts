@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, input, signal, ViewChild } from '@angular/core';
 import { Genre } from '../../models/genre';
 import { Movies } from '../../services/movies';
-import { movie } from '../../models/movies-by-genre';
+import { movieGenre } from '../../models/movies-by-genre';
 import { MovieCard } from '../movie-card/movie-card';
 
 @Component({
@@ -13,7 +13,7 @@ import { MovieCard } from '../movie-card/movie-card';
 export class MoviesGenre {
   private moviesByGenre = inject(Movies);
   genre = input<Genre | null>(null);
-  movies = signal<movie[]>([]);
+  movies = signal<movieGenre[]>([]);
   translateX = signal(0);
   ngOnInit() {
     this.getMovesByGenre();

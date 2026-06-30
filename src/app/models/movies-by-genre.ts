@@ -1,11 +1,11 @@
 export interface MoviesByGenre {
     page:          number;
-    results:       movie[];
+    results:       movieGenre[];
     total_pages:   number;
     total_results: number;
 }
 
-export interface movie {
+export interface movieGenre {
     adult:             boolean;
     backdrop_path:     string;
     genre_ids:         number[];
