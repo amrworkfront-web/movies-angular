@@ -4,6 +4,7 @@ import { Movies } from './components/movies/movies';
 import { Home } from './components/home/home';
 import { MovieDetails } from './components/movie-details/movie-details';
 import { Trending } from './components/trending/trending';
+import { Watchlist } from './components/watchlist/watchlist';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,10 @@ export const routes: Routes = [
             {
                 path:'trend',
                 component:Trending
+            },
+            {
+                path:'watchlist',
+                component:Watchlist
             },
             {
                 path:'movies/:id',

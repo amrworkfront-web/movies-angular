@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Movie, MoviesResponse } from '../models/movie';
 import { GenreResponse } from '../models/genre';
-import { MoviesByGenre } from '../models/movies-by-genre';
+import { movie, MoviesByGenre } from '../models/movies-by-genre';
 import { MovieDetailsResponse } from '../models/movie-details';
 import { CreditsResponse } from '../models/credits-response';
 import { Video } from '../models/video';
@@ -44,8 +44,28 @@ getMoviesbyGenre (genreId:number): Observable<MoviesByGenre>{
  getMovieVideos (id:number):Observable<Video> {
   return this.http.get<Video>(`/movie/${id}/videos`);
 };
-//  searchMovies () {
-//   return this.http.get(`/search/movie?query=${query}`);
-// };
-
+ searchMovies (query:string):Observable<MoviesResponse> {
+  return this.http.get<MoviesResponse>(`/search/movie?query=${query}`);
+};
+getMovie(id: number): Observable<movie> {
+  return this.http.get<MovieDetailsResponse>(`/movie/${id}`).pipe(
+    map(movie => ({
+      adult: movie.adult,
+      backdrop_path: movie.backdrop_path,
+      genre_ids: movie.genres.map(genre => genre.id),
+      id: movie.id,
+      title: movie.title,
+      original_language: movie.original_language,
+      original_title: movie.original_title,
+      overview: movie.overview,
+      popularity: movie.popularity,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date,
+      softcore: movie.softcore,
+      video: movie.video,
+      vote_average: movie.vote_average,
+      vote_count: movie.vote_count,
+    }))
+  );
+}
 }

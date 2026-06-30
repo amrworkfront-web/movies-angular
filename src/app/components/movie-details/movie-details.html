@@ -115,9 +115,14 @@
         [alt]="movieDetails().original_title">
 
       <button
+      (click)="watchlistService.toggle(movieDetails().id)"
         class="mt-6 w-full rounded-xl bg-red-600 py-3 font-semibold transition hover:bg-red-700">
+@if(!watchlistService.isInWatchlist(movieDetails().id)){
 
-        + Add To Watchlist
+  + Add To Watchlist
+}@else {
+  remove
+}
 
       </button>
 

@@ -10,5 +10,6 @@ import { RouterLink } from "@angular/router";
 })
 export class MovieCard {
   movie=input<movie>({}as movie)
+
   
 }

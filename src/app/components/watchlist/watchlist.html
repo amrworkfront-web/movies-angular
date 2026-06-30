@@ -1,0 +1,12 @@
+  <div
+      class="grid grid-cols-8 gap-4 min-h-screen">
+
+      @for (movie of movies(); track movie.id) {
+
+        <div class="col-span-2">
+          <app-movie-card [movie]="movie" />
+        </div>
+
+      }
+
+    </div>

@@ -1,10 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { Movies } from '../../services/movies';
+import { Movie } from '../../models/movie';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive,ReactiveFormsModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar {}
+export class Navbar {
+  private searchService=inject(Movies)
+  movies=signal<Movie[]>([])
+  searchControl = new FormControl('');
+ngOnInit() {
+
+  this.searchControl.valueChanges.pipe(
+    debounceTime(900),
+    distinctUntilChanged(),
+
+    switchMap(searchTerm =>
+      this.searchService.searchMovies(searchTerm ?? '')
+    )
+
+  ).subscribe({
+    next: (res) => this.movies.set(res.results),
+    error: err => console.error(err)
+  });
+
+}
+}
