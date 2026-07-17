@@ -12,7 +12,7 @@ export class MovieCredits {
   movieDetailsService = inject(Movies);
 
   movieCrediates = signal<Cast[]>([]);
-  id = input.required<string | null>;
+  id = input.required<string | null>();
   constructor() {
     effect(() => {
       const id = this.id();

@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { Hero } from "../hero/hero";
 import {Movies as MoviesService} from '../../services/movies'
 import { MoviesGenre } from "../movies-genre/movies-genre";
 import { Genre } from '../../models/genre';
 
 @Component({
   selector: 'app-movies',
-  imports: [Hero, MoviesGenre],
+  imports: [ MoviesGenre],
   templateUrl: './movies.html',
   styleUrl: './movies.css',
 })

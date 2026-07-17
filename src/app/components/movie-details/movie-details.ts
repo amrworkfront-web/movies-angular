@@ -2,7 +2,6 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movies } from '../../services/movies';
 import { MovieDetailsResponse } from '../../models/movie-details';
-import { Cast } from '../../models/credits-response';
 import { Watchlist } from '../../services/watchlist';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { VideoCard } from "../video-card/video-card";
