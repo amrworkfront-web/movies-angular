@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { Landingpage } from './components/landingpage/landingpage';
-import { Movies } from './components/movies/movies';
 import { Home } from './components/home/home';
 import { MovieDetails } from './components/movie-details/movie-details';
 import { Trending } from './components/trending/trending';
@@ -17,19 +16,22 @@ export const routes: Routes = [
         children:[
             {
                 path:'',
-                component:Movies
+                loadComponent:()=>import('./components/movies/movies').then(c=>c.Movies)
             },
             {
                 path:'trend',
-                component:Trending
+
+                loadComponent:()=>import('./components/trending/trending').then(c=>c.Trending)
             },
             {
                 path:'watchlist',
-                component:Watchlist
+                                loadComponent:()=>import('./components/watchlist/watchlist').then(c=>c.Watchlist)
+
             },
             {
                 path:'movies/:id',
-                component:MovieDetails
+                                loadComponent:()=>import('./components/movie-details/movie-details').then(c=>c.MovieDetails)
+
             }
         ]
     },
