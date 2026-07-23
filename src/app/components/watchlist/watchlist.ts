@@ -1,10 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { MovieCard } from "../movie-card/movie-card";
-import {Watchlist as watchlistService} from '../../services/watchlist'
+import {Watchlist as WatchlistService} from '../../services/watchlist'
 import { forkJoin } from 'rxjs';
 import { Movies } from '../../services/movies';
-import { Movie } from '../../models/movie';
 import { movieGenre } from '../../models/movies-by-genre';
+
 @Component({
   selector: 'app-watchlist',
   imports: [MovieCard],
@@ -12,17 +12,23 @@ import { movieGenre } from '../../models/movies-by-genre';
   styleUrl: './watchlist.css',
 })
 export class Watchlist {
-  watchlist=inject(watchlistService)
-  MovieService=inject(Movies)
-  moviesList=this.watchlist.watchlist()
-  movies=signal<movieGenre[]>([])
+  private watchlistService = inject(WatchlistService);
+  private moviesService = inject(Movies);
+  movies = signal<movieGenre[]>([]);
 
-  ngOnInit(){
-    forkJoin(
-      this.moviesList.map(id=>this.MovieService.getMovie(id))
-    ).subscribe({
-      next:(res)=>this.movies.set(res),
-      error:(err)=>console.log(err)
-    })
+  constructor() {
+    effect(() => {
+      const ids = this.watchlistService.watchlist();
+      if (ids.length === 0) {
+        this.movies.set([]);
+        return;
+      }
+      forkJoin(
+        ids.map(id => this.moviesService.getMovie(id))
+      ).subscribe({
+        next: (res) => this.movies.set(res),
+        error: (err) => console.error(err),
+      });
+    });
   }
 }

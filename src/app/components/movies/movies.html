@@ -1,5 +1,13 @@
-@for (genre of genres(); track genre.id) {
-  <div class="">
+
+@for (genre of genres(); track genre.id; let i = $index) {
+
+  @if (i < 3) {
     <app-movies-genre [genre]="genre"></app-movies-genre>
-  </div>
+  } @else {
+    @defer (on viewport) {
+      <app-movies-genre [genre]="genre"></app-movies-genre>
+    } @placeholder {
+<p>loading</p>    }
+  }
+
 }
